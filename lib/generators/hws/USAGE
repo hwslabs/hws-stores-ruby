@@ -1,0 +1,8 @@
+Description:
+    Adds necessary ActiveRecord migrations to the rails application
+
+Example:
+    rails generate hws_stores:install
+
+    This will create:
+        db/migrate/<migration_number>_create_hws_store_tables.rb
