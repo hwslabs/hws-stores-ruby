@@ -1,8 +1,6 @@
-module Hws
-  module Store
-    # require 'generators/hws-store_migration'
+# frozen_string_literal: true
 
-    VERSION = '0.1.0'.freeze
-    MODELS = ['Store', 'Owner'].freeze
-  end
+module Hws
+  VERSION = '0.1.0'
+  MODELS = ['Store', 'Owner']
 end

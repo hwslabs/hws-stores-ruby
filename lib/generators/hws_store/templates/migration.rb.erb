@@ -1,5 +1,7 @@
-class CreateHwsStoreTables < ActiveRecord::Migration
+class <%= @migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
   def self.up
+    enable_extension 'pgcrypto' unless extensions.include?('pgcrypto')
+
     create_table :hws_stores, id: :uuid do |t|
       t.string   :name
       t.text     :description
@@ -19,13 +21,24 @@ class CreateHwsStoreTables < ActiveRecord::Migration
       t.belongs_to :owner, foreign_key: true
     end
 
+    create_table :hws_store_components, id: :uuid do |t|
+      t.belongs_to :store, foreign_key: true
+      t.string   :name
+      t.text     :description
+      t.jsonb    :data
+      t.jsonb    :tags
+      t.timestamps
+    end
+
     add_index :hws_stores, :tags, using: :gin
     add_index :hws_owners, :tags, using: :gin
+    add_index :hws_store_components, :store_id
   end
 
   def self.down
     drop_table :hws_store_owners
     drop_table :hws_owners
     drop_table :hws_stores
+    drop_table :hws_store_components
   end
 end
