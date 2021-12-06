@@ -6,6 +6,6 @@ class Hws::Stores::Models::Base < ActiveRecord::Base # :nodoc:
   before_create :set_uuid
 
   def set_uuid
-    self.id = LSUUID.generate if self.id.blank?
+    self.id = ::LSUUID.generate if self.id.blank?
   end
 end
